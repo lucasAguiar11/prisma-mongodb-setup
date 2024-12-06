@@ -2,13 +2,16 @@ version: "3.7"
 
 services:
   mongodb_container:
-    container_name: mongodb
+    container_name: mongodb-auth
     image: prismagraphql/mongo-single-replica:4.4.3-bionic
+    platform: linux/amd64
     volumes:
-      - ./data:/data/db
+      - ./data-replica:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: prisma
       INIT_WAIT_SEC: 3
+      MONGO_AUTHENTICATION_DATABASE: admin
+      AUTHENTICATION_MODE: PRIMARY
     ports:
-      - 8011:27017
+      - 27018:27017 d
